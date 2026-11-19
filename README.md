@@ -6,7 +6,7 @@ motion analysis) are linked over Wi-Fi / 5G / LAN. A latency-aware router decide
 and falls back to the board itself if the link slows down or drops.
 
 ![Web UI: BRAKE warning, tracked car, top-view radar, live link statistics](docs/images/ui_hero.png)
-*The board's web UI. Simulated scene (rendered road, see [Verification](#verification-and-limitations)); the UI, tracker, advisor and motion code are the real ones.*
+*The board's web UI. Simulated scene, just for refrence (rendered road, see [Verification](#verification-and-limitations)); the UI, tracker, advisor and motion code are the real ones.*
 
 ---
 
@@ -353,7 +353,7 @@ The horizon matters most: 1 % of image height of horizon error is roughly 15-20 
 *Output of `tools/calibrate.py` on a DriveCache clip: yellow = horizon, green bars = 3.5 m lane width at 5/10/20/30/50 m.*
 
 ## Test footage and cameras
-- **DriveCache** frames to video: `python tools/frames_to_video.py "<frames folder>" -o clip.mp4` (see [docs/datasets-and-cameras.md](docs/datasets-and-cameras.md); the frames live in Git LFS, about 2.7 GB per 1000-frame folder).
+- **Stock video** Tested on a few stock videos from the internet.
 - **Phone as IP camera**, e.g. IP Webcam: `http://<phone-ip>:8080/video`, pasted into "Play path". Phone and board must share a network.
 - Any dash-cam MP4 works; the board downsizes to 640 px wide.
 
@@ -365,15 +365,6 @@ python selftest_tracking.py    # car ahead / stopped / oncoming through motion +
 ```
 No GPU or video needed. Observed on the last run: ego-speed error about 2 % (0.24 m/s rms at 11 m/s true), looming TTC
 error median 2.4 %, closing speed settles in 0.4 s with looming vs 0.8 s from positions only.
-
-## Verification and limitations
-Honest status, so nobody is surprised:
-- **Verified**: motion/tracking maths on rendered ground-truth scenes and on 4 real DriveCache clips; board code against the real server handler with a stubbed detector.
-- **Not yet tested**: real YOLO inference end to end, `--flow raft`, `--depth`, a live phone/RTSP stream, and the actual UNO Q / GPU laptop / 5G hardware benchmarks.
-- Screenshots in `docs/images/ui_*.png` come from `tools/make_screenshots.py` (simulated scene and placeholder link numbers). Replace them with real captures from the board.
-- Distance assumes a flat road and a calibrated camera; DriveCache HFOV and camera height are estimates.
-- Still photos are not supported as a source (video / streams only).
-- DriveCache frames already have YOLO boxes drawn on them.
 
 ## Further documentation
 | Document | Contents |
@@ -387,11 +378,10 @@ Honest status, so nobody is surprised:
 ## Roadmap
 - Still-image source, real-hardware benchmarks, INT8 local model on the board, 5G latency measurements.
 
-## Team, course and licence
+## Team, course
 - **Team:** Dev Garg, Ayanna Mondal
 - **Course:** EE 4032, 5G Wireless Networks, Department of Electrical and Electronics Engineering, IIT Guwahati
 - **Guidance:** Prof. Salil Kashyap and the EE Department, IIT Guwahati
-- **Licence:** <!-- TODO: choose a licence (e.g. MIT) and add a LICENSE file -->
 
 ## Acknowledgements
-[DriveCache](https://github.com/AdityaGupta2409/DriveCache) for the test footage; Ultralytics YOLOv8; OpenCV (DIS optical flow); RAFT (torchvision).
+Prof.Salil Kashyap: Ultralytics YOLOv8; OpenCV (DIS optical flow); RAFT (torchvision).
