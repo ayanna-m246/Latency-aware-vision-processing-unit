@@ -375,13 +375,9 @@ error median 2.4 %, closing speed settles in 0.4 s with looming vs 0.8 s from po
 | [docs/protocol.md](docs/protocol.md) | WebSocket message formats |
 | [docs/setup.md](docs/setup.md) | Short setup notes (superseded by [Setup](#setup) above) |
 
-## Roadmap
-- Still-image source, real-hardware benchmarks, INT8 local model on the board, 5G latency measurements.
-
 ## Team, course
 - **Team:** Dev Garg, Ayanna Mondal
 - **Course:** EE 4032, 5G Wireless Networks, Department of Electrical and Electronics Engineering, IIT Guwahati
 - **Guidance:** Prof. Salil Kashyap and the EE Department, IIT Guwahati
 
-## Acknowledgements
-Ultralytics YOLOv8; OpenCV (DIS optical flow); RAFT (torchvision).
+
