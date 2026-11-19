@@ -384,4 +384,4 @@ error median 2.4 %, closing speed settles in 0.4 s with looming vs 0.8 s from po
 - **Guidance:** Prof. Salil Kashyap and the EE Department, IIT Guwahati
 
 ## Acknowledgements
-Prof.Salil Kashyap: Ultralytics YOLOv8; OpenCV (DIS optical flow); RAFT (torchvision).
+Ultralytics YOLOv8; OpenCV (DIS optical flow); RAFT (torchvision).
