@@ -15,7 +15,7 @@ and falls back to the board itself if the link slows down or drops.
 | Deliverable | File | How to view |
 |---|---|---|
 | **A1 poster** | [`docs/VPU_Poster_A1.pdf`](docs/VPU_Poster_A1.pdf) | Click the preview below, or open the PDF directly. |
-| **Project video** | [`docs/5G_proj.mp4`](docs/5G_proj.mp4) | ~200 MB, stored with Git LFS. On GitHub click the file, then **Download** (or *View raw*) if it does not play in the browser. |
+| **Demonstration video** | [`docs/5G_proj.mp4`](docs/5G_proj.mp4) | ~200 MB, stored with Git LFS. On GitHub click the file, then **Download** (or *View raw*) if it does not play in the browser. |
 
 [![Poster preview: click to open the full A1 PDF](docs/images/poster_preview.png)](docs/VPU_Poster_A1.pdf)
 
