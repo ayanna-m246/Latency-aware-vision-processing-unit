@@ -6,7 +6,7 @@ motion analysis) are linked over Wi-Fi / 5G / LAN. A latency-aware router decide
 and falls back to the board itself if the link slows down or drops.
 
 ![Web UI: BRAKE warning, tracked car, top-view radar, live link statistics](docs/images/ui_hero.png)
-*The board's web UI. Simulated scene, just for refrence (rendered road, see [Verification](#verification-and-limitations)); the UI, tracker, advisor and motion code are the real ones.*
+*The board's web UI. Simulated scene, for illustration only (rendered road, see [Verification](#verification-and-limitations)); the UI, tracker, advisor and motion code are the real ones.*
 
 ---
 
@@ -39,7 +39,7 @@ and falls back to the board itself if the link slows down or drops.
 11. [Verification and limitations](#verification-and-limitations)
 12. [Further documentation](#further-documentation)
 13. [Roadmap](#roadmap)
-14. [Team, course and licence](#team-course-and-licence)
+14. [Team and course](#team-course-and-licence)
 15. [Acknowledgements](#acknowledgements)
 
 ---
@@ -340,7 +340,7 @@ python tools/calibrate.py clip.mp4 --speed-kmh 30        # if the average speed 
 python tools/replay.py clip.mp4 --calib calib_out/calibration.json
 ```
 
-| Setting | Meaning | DriveCache values |
+| Setting | Meaning | Values for the DriveCache clips (stock clips: calibrate yourself) |
 |---|---|---|
 | HORIZON | Row of the horizon, 0 = top | **0.29** |
 | CAM_H | Lens height above the road, m | **1.55** |
@@ -353,9 +353,9 @@ The horizon matters most: 1 % of image height of horizon error is roughly 15-20 
 *Output of `tools/calibrate.py` on a DriveCache clip: yellow = horizon, green bars = 3.5 m lane width at 5/10/20/30/50 m.*
 
 ## Test footage and cameras
-- **Stock video** Tested on a few stock videos from the internet.
-- **Phone as IP camera**, e.g. IP Webcam: `http://<phone-ip>:8080/video`, pasted into "Play path". Phone and board must share a network.
-- Any dash-cam MP4 works; the board downsizes to 640 px wide.
+- **Stock dash-cam clips** from the internet (MP4, downsized to 640 px wide by the board). These come with no calibration data, so distances are only roughly right unless you run `tools/calibrate.py` on them.
+- **Phone as IP camera**, e.g. IP Webcam: `http://<phone-ip>:8080/video`, pasted into "Play path". Phone and board must share a network. With a live phone feed the camera height, horizon and field of view can be measured for that exact mounting, which gave clearly better results than uncalibrated stock clips.
+- Any dash-cam MP4 works.
 
 ## Tests
 ```bash
@@ -366,18 +366,38 @@ python selftest_tracking.py    # car ahead / stopped / oncoming through motion +
 No GPU or video needed. Observed on the last run: ego-speed error about 2 % (0.24 m/s rms at 11 m/s true), looming TTC
 error median 2.4 %, closing speed settles in 0.4 s with looming vs 0.8 s from positions only.
 
+## Verification and limitations
+Status of what has been checked:
+
+- **Verified**.
+  - Board code against the real server handler with a stubbed detector.
+  - Live runs of the full pipeline (UNO Q, RTX 3050 laptop server, phone live feed, stock clips) as shown in the poster results. These are qualitative demonstrations.
+- **Known limitations**
+  - Distance assumes a flat road and a calibrated camera. Stock clips have no calibration.
+  - Plain `ws://` is unencrypted (see [docs/protocol.md](docs/protocol.md) section 8); use Tailscale/ZeroTier or a tunnel beyond a lab setup.
+  - Still photos are not supported as a source (video / streams only).
+- Screenshots in `docs/images/ui_*.png` come from `tools/make_screenshots.py` (simulated scene and placeholder link numbers); replace them with real captures from the board when available.
+
 ## Further documentation
 | Document | Contents |
 |---|---|
 | [docs/how-it-works.md](docs/how-it-works.md) | Pipeline, router and motion analysis |
 | [docs/calibration.md](docs/calibration.md) | Calibration settings and checks |
-| [docs/datasets-and-cameras.md](docs/datasets-and-cameras.md) | DriveCache footage, phone IP camera |
 | [docs/protocol.md](docs/protocol.md) | WebSocket message formats |
-| [docs/setup.md](docs/setup.md) | Short setup notes (superseded by [Setup](#setup) above) |
+| [docs/setup.md](docs/setup.md) | Short setup notes (the [Setup](#setup) section above is the complete version) |
 
-## Team, course
+## Roadmap
+- Still-image source.
+- Real-hardware benchmarks and 5G latency measurements (RTT, uplink, handover behaviour).
+- INT8 local model validated on the board.
+- QUIC / WebTransport instead of TCP WebSocket; use of 5G modem metrics in the router (see [docs/protocol.md](docs/protocol.md) section 9).
+
+## Team and course 
 - **Team:** Dev Garg, Ayanna Mondal
 - **Course:** EE 4032, 5G Wireless Networks, Department of Electrical and Electronics Engineering, IIT Guwahati
-- **Guidance:** Prof. Salil Kashyap and the EE Department, IIT Guwahati
+- **Guidance:** Prof. Salil Kashyap and the EEE Department, IIT Guwahati
 
 
+## Acknowledgements
+We thank Prof. Salil Kashyap and the EEE Department, IIT Guwahati, for guidance and for lab facilities and hardware.
+Ultralytics YOLOv8; OpenCV (DIS optical flow); torchvision (RAFT).
