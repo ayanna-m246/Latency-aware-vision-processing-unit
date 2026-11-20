@@ -6,7 +6,7 @@ What makes distance and speed right.
     python tools/calibrate.py rs2_20min.mp4 --speed-kmh 30   # if you know the average speed -> solves CAM_H
     python tools/replay.py rs2_20min.mp4 --calib calib_out/calibration.json   # annotated video + CSV, on the laptop
 
-| setting | meaning | how to get it | DriveCache (phone on the i20 roof) |
+| setting | meaning | how to get it | DriveCache (phone on the i20 roof); stock clips have no known values |
 |---|---|---|---|
 | HORIZON | row of the horizon, 0 = top | vanishing point of lane lines / kerbs (calibrate.py), cross-checked by optical flow | **0.29** (measured 0.289-0.314 on 4 clips) |
 | CAM_H | lens height above road, m | tape measure; or `--speed-kmh`; or `--lane` | **1.55** (roof ~1.5 m + mount) |
