@@ -2,10 +2,10 @@
 
 ## Pipeline and router
 Camera thread keeps only the newest frame -> **frame-diff gate** (64x36 thumbnail vs last *processed* frame; skip if
-diff < threshold, forced refresh every 1 s) -> **router** -> detector -> **tracker** (always on UNO Q) -> UI + MCU alert.
+diff < threshold, forced refresh every 0.5 s) -> **router** -> detector -> **tracker** (always on UNO Q) -> UI + MCU alert.
 Router: remote_est = RTT + GPU time + JPEG encode; local_est = measured local inference. Auto mode switches to the laptop
-only if remote_est < 0.8 x local_est, back if > 1.1 x (hysteresis). RTT is pinged every 1 s while local, measured from real
-frames while remote. Remote call has a hard timeout (~2.5 x estimate, 120-350 ms); on timeout that same frame is run locally.
+only if remote_est < min(800 ms, 4 x local_est); back to local only if remote_est > 1.3 x that limit (hysteresis). RTT is pinged every 1 s while local, measured from real
+frames while remote. Remote call has a hard timeout (3 x estimate, clamped to 0.6-2 s); on timeout that same frame is run locally.
 Tracking, distance, speed and direction run on the UNO Q for both paths, so switching never resets IDs.
 
 Distance = fusion of road-plane geometry (camera height + horizon) and object size (class heights in tracking.py).
