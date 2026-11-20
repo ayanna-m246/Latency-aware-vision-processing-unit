@@ -1,4 +1,6 @@
-# Setup
+# Setup (short version)
+
+The complete, current setup guide is the [Setup section of the README](../README.md#setup). This page keeps only the quick Tailscale-based path. Other options (same Wi-Fi/5G hotspot, Cloudflare quick tunnel) are in the README.
 
 ## 1. Connect the two devices (any network): Tailscale
 - Laptop (Windows/Linux): install Tailscale, sign in, note its IP:  `tailscale ip -4`  (100.x.y.z)
